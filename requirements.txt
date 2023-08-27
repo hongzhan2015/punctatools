@@ -1,0 +1,9 @@
+ipykernel
+ddt
+pytest
+tqdm
+pandas
+seaborn
+holoviews
+jupyter
+cellpose
