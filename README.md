@@ -23,12 +23,42 @@ To overwrite an old environment with the same name, run the above command with t
 
 ``conda env create -f punctatools.yml --force``
 
-**Option 2: pip installation**
+## Installation on M2 Macbook Air
 
-1. Create and activate a new [anaconda](https://docs.anaconda.com/anaconda/install/) 
-   environment (optional): 
-   ``conda create -n punctatools python=3.9; conda activate punctatools``
-2. Install the punctatools package and dependencies:
+**Step 1: Homebrew installation**
+
+``/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"``
+
+Keep the default setting and leave the homebrew install in the /usr/local. 
+
+**Step 2: miniforge installation**
+
+Miniforge is an ARM native conda package, it contains miniconda3 and mamba, from [miniforge](https://github.com/conda-forge/miniforge). You can install miniforge by using homebrew:
+   
+``brew install miniforge``
+
+To install tensorflow and keras for M2 chip macOs, install OpbenBlas:
+
+``brew install openblas``
+
+**Step 3: enable openlas**
+
+Installing Scipy scikit-learn scikit-image via pip from [information](https://stackoverflow.com/questions/68620927/installing-scipy-and-scikit-learn-on-apple-m1):
+
+``export OPENBLAS=$(/usr/local/Homebrew/bin/brew --prefix openblas)``
+``export CFLAGS="-falign-functions=8 ${CFLAGS}"``
+
+**Step 4: mamba installation and conda environment creation**
+
+1. Create and activate a new conda environment via mamba: 
+   ``mamba create -c conda-forge -c bioconda -n punctatools bioformats python==3.8.4; conda activate punctatools``
+2. Install scipy, scikit-learning and scikit-image:
+    ``pip install scipy scikit-learning scikit-image``
+3. Install the dependencies:
+    ``pip install -r requirements.txt``
+4. Install the punctatools package and dependencies:
+    ``pip install git+https://github.com/amedyukhina/am_utils.git``
+    ``pip install git+https://github.com/bhoeckendorf/intake_io.git@v0.0.2``
     ``pip install git+https://github.com/stjude/punctatools.git@v0.2.0``
 
 
